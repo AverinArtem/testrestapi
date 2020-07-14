@@ -14,8 +14,6 @@ ALLOWED_EXTENSION = set(['png'])
 
 
 def dominant_color(filename):
-    #Resizing parameters
-    width, height = 150,150
     image = Image.open(filename)
     image = np.array(image)
     image = image[:,:,0:3]
@@ -28,11 +26,11 @@ def allowed_file(filename):
 app = Flask(__name__)
 
 @app.route("/test/form/upload_image")
-def hello_world():
+def upload_page():
     return '<form action="/upload_image" method="POST"><input type="submit" value="Upload"></form>'
 
 @app.route("/api/determine_dominate_color", methods=['POST'])
-def print_filename():
+def res_func():
     
     file = request.files['file']
     filename = secure_filename(file.filename)
@@ -44,4 +42,4 @@ def print_filename():
     return res
 
 if __name__=="__main__":
-    app.run(port=8080, debug=True)
+    app.run(host='0.0.0.0', debug=True)
